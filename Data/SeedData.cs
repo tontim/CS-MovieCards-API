@@ -42,5 +42,14 @@ namespace CS_MovieCards_API.Data
             
         return faker.Generate(nrOfMovies);
         }
+
+        private static ICollection<Director> GenerateDirectors(int nrOfDirectors)
+        {
+        var faker = new Faker<Director>("sv")
+            .RuleFor(d => d.Name, e => e.Person.FullName)
+            .RuleFor(d => d.DateOfBirth, e => e.Date.Past(60));
+            
+            return faker.Generate(nrOfDirectors);
+        }
     }
 }

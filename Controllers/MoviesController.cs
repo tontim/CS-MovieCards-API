@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using CS_MovieCards_API.Data;
-using CS_MovieCards_API.Models.Entities;
+
 
 namespace CS_MovieCards_API.Controllers
 {
@@ -14,33 +11,52 @@ namespace CS_MovieCards_API.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private readonly DBContext _context;
+        private readonly DBContext db;
 
         public MoviesController(DBContext context)
         {
-            _context = context;
+            db = context;
         }
 
         // GET: api/Movies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMovie()
+        public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovie()
         {
-            return await _context.Movie.ToListAsync();
+            var movies = db.Movie;
+            var movieDtos = movies.Select(c => new MovieDto
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Rating = c.Rating,
+                ReleaseDate = c.ReleaseDate,
+                Description = c.Description
+            });
+
+            return Ok(await movieDtos.ToListAsync());
         }
 
-        // GET: api/Movies/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Movie>> GetMovie(Guid id)
-        //{
-        //    var movie = await _context.Movie.FindAsync(id);
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<Movie>> GetMovie(Guid id)
+        {
+            var movie = await db.Movie.FindAsync(id);
 
-        //    if (movie == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (movie == null)
+            {
+                return NotFound();
+            }
 
-        //    return movie;
-        //}
+            var dto = new MovieDto
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Rating = movie.Rating,
+                ReleaseDate = movie.ReleaseDate,
+                Description = movie.Description
+
+            };
+
+            return Ok(dto);
+        }
 
         // PUT: api/Movies/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

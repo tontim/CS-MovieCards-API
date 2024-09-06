@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS-MovieCards-API", "CS-MovieCards-API.csproj", "{E2ADCB1C-8234-4D1E-A5A2-5EA9DFDB313E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CS-MovieCards-API", "CS-MovieCards-API.csproj", "{E2ADCB1C-8234-4D1E-A5A2-5EA9DFDB313E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Shared", "..\Movies.Shared\Movies.Shared.csproj", "{761AC618-E5BA-4677-B403-CB20B1339767}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E2ADCB1C-8234-4D1E-A5A2-5EA9DFDB313E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2ADCB1C-8234-4D1E-A5A2-5EA9DFDB313E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2ADCB1C-8234-4D1E-A5A2-5EA9DFDB313E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{761AC618-E5BA-4677-B403-CB20B1339767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{761AC618-E5BA-4677-B403-CB20B1339767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{761AC618-E5BA-4677-B403-CB20B1339767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{761AC618-E5BA-4677-B403-CB20B1339767}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
