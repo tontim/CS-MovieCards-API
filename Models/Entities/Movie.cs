@@ -8,7 +8,7 @@ namespace CS_MovieCards_API.Models.Entities
 
         [Required(ErrorMessage = "Movie title is required.")]
         [MaxLength(50, ErrorMessage = "Max length is 50 characters.")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         public int Rating { get; set; }
 
@@ -19,6 +19,6 @@ namespace CS_MovieCards_API.Models.Entities
         public string? Description { get; set; }
 
         //Navigation property
-        public ICollection<Director> Directors { get; set; }
+        public ICollection<Director>? Directors { get; set; }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http;
 
 
@@ -12,27 +14,25 @@ namespace CS_MovieCards_API.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly DBContext db;
+        private readonly IMapper mapper;
 
-        public MoviesController(DBContext context)
+        public MoviesController(DBContext context, IMapper mapper)
         {
             db = context;
+            this.mapper = mapper;
         }
 
         // GET: api/Movies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovie()
         {
-            var movies = db.Movie;
-            var movieDtos = movies.Select(c => new MovieDto
-            {
-                Id = c.Id,
-                Title = c.Title,
-                Rating = c.Rating,
-                ReleaseDate = c.ReleaseDate,
-                Description = c.Description
-            });
+            var movies = await db.Movie.ToListAsync();
+            var dtos = mapper.Map<IEnumerable<MovieDto>>(movies);
 
-            return Ok(await movieDtos.ToListAsync());
+            var movieDtos = await db.Movie.ProjectTo<MovieDto>(mapper.ConfigurationProvider).ToListAsync();
+
+            return Ok(movieDtos);
+
         }
 
         [HttpGet("{id:guid}")]
@@ -45,15 +45,7 @@ namespace CS_MovieCards_API.Controllers
                 return NotFound();
             }
 
-            var dto = new MovieDto
-            {
-                Id = movie.Id,
-                Title = movie.Title,
-                Rating = movie.Rating,
-                ReleaseDate = movie.ReleaseDate,
-                Description = movie.Description
-
-            };
+            var dto = mapper.Map<MovieDto>(movie);
 
             return Ok(dto);
         }

@@ -24,7 +24,7 @@ namespace CS_MovieCards_API.Data
                     await db.AddRangeAsync(movies);
                     await db.SaveChangesAsync();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
